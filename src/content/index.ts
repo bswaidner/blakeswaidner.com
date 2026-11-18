@@ -1,10 +1,10 @@
 import { experience } from "./experience";
 import { profile } from "./profile";
-import { exampleCaseStudy } from "./projects/example-case-study";
+import { placeholderProjects } from "./projects/placeholders";
 import type { Project } from "./schema";
 
 /** Every case study, in the order they appear on the home page. */
-export const projects: Project[] = [exampleCaseStudy];
+export const projects: Project[] = [...placeholderProjects];
 
 export const featuredProjects = projects.filter((project) => project.featured);
 

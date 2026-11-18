@@ -27,6 +27,12 @@ Blake Swaidner's personal site: a resume with more depth, read by recruiters, in
 - A case study needs at least one evidence link; the schema and `src/content/content.test.ts` enforce it.
 - `src/lib/site.ts` has `launched: false`, which keeps search engines out while the copy is placeholder.
 
+## Design
+
+- The look is the "Type index" direction from Blake's design canvas: white ground, ink `#141414`, Instrument Sans, the page title as a vertical spine (`src/components/spine.tsx`), project names set large as the index, and one colour per project used for its square, image mat and outcome block.
+- Light only; there is no dark theme. Colours and the `label` utility are in `src/app/globals.css`.
+- Check any layout change at phone and desktop widths. The two differ in structure, not just size.
+
 ## Rules for copy
 
 - Never invent or round up a claim, number, title or date. If a fact is not already on the site, ask Blake; his source notes are private and are not in this repo.
