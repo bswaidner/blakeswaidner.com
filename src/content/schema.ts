@@ -16,10 +16,13 @@ export const evidenceSchema = linkSchema.extend({
 
 export const profileSchema = z.object({
   name: text,
-  /** The role line under the name, e.g. the title being applied for. */
+  /** The role line beside the name, e.g. the title being applied for. */
   role: text,
   location: text,
+  /** The large opening statement on the home page. */
   summary: text,
+  /** The "More" paragraph: life away from the keyboard. */
+  more: text,
   links: z.array(linkSchema).min(1),
 });
 
@@ -37,18 +40,27 @@ export const experienceSchema = z.object({
 export const projectSchema = z.object({
   slug,
   title: text,
-  /** One line shown on the home page. */
+  /** One sentence: what it is, who it was for, and what changed because of it. */
   tagline: text,
+  kind: z.enum(["Case study", "Interactive", "Project", "Craft"]),
+  year: text,
   /** What Blake did on it, in his own role terms. */
   role: text,
-  period: text,
+  team: text,
   stack: z.array(text).min(1),
+  /** The project's colour: its index square, image mat and outcome block. */
+  color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   featured: z.boolean(),
-  /** The case study, in the order a reader asks: why, what, how, so what. */
-  problem: text,
-  built: z.array(text).min(1),
-  decisions: z.array(z.object({ title: text, detail: text })),
-  outcome: z.array(text).min(1),
+  /** The situation: the product, the users, why the work mattered then. */
+  context: text,
+  /** What Blake owned and decided, and who he worked with. */
+  myRole: text,
+  /** The one problem that made it difficult, the options, the call made. */
+  hardPart: text,
+  outcome: z.object({
+    metrics: z.array(z.object({ value: text, label: text })).max(3),
+    text,
+  }),
   /** At least one checkable link. A case study with no evidence does not ship. */
   evidence: z.array(evidenceSchema).min(1),
 });

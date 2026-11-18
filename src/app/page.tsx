@@ -1,73 +1,52 @@
-import Link from "next/link";
-
-import { ExperienceList } from "@/components/experience-list";
-import { Separator } from "@/components/ui/separator";
+import { ContactLinks } from "@/components/contact-links";
+import { ExperienceRows } from "@/components/experience";
+import { Spine, SpinePage } from "@/components/spine";
+import { WorkIndex } from "@/components/work-index";
 import { experience, featuredProjects, profile } from "@/content";
+
+const navLink = "inline-flex min-h-11 items-center text-[15px] no-underline";
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-12 pt-10">
-      <section>
-        <h1 className="text-3xl font-semibold tracking-tight">{profile.name}</h1>
-        <p className="mt-1 text-muted-foreground">
-          {profile.role} · {profile.location}
+    <SpinePage spine={<Spine title={profile.name} />}>
+      <div className="mt-1 flex min-w-0 flex-1 flex-col gap-14 md:mt-0 md:gap-[72px] md:pt-2">
+        <header className="flex flex-wrap items-center justify-between gap-x-5 md:gap-x-8 md:border-b md:border-ink">
+          <span className="label">
+            {profile.role} · {profile.location}
+          </span>
+          <nav aria-label="Primary" className="flex flex-wrap gap-x-5 md:gap-x-7">
+            <a href="#work" className={navLink}>
+              Work
+            </a>
+            <a href="#experience" className={navLink}>
+              Experience
+            </a>
+            <a href="#more" className={navLink}>
+              More
+            </a>
+          </nav>
+        </header>
+
+        <p className="m-0 max-w-[860px] text-[clamp(24px,2.8vw,34px)] leading-[1.2] font-medium tracking-[-0.025em]">
+          {profile.summary}
         </p>
-        <p className="mt-5 max-w-prose leading-7">{profile.summary}</p>
-        <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-          {profile.links.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="underline underline-offset-4 hover:text-muted-foreground"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-          <li>
-            <Link
-              href="/resume"
-              className="underline underline-offset-4 hover:text-muted-foreground"
-            >
-              Resume
-            </Link>
-          </li>
-        </ul>
-      </section>
 
-      <Separator />
+        <WorkIndex projects={featuredProjects} />
 
-      <section id="work" className="scroll-mt-8">
-        <h2 className="text-sm font-medium text-muted-foreground">
-          Selected work
-        </h2>
-        <ul className="mt-5 flex flex-col gap-6">
-          {featuredProjects.map((project) => (
-            <li key={project.slug}>
-              <Link href={`/work/${project.slug}`} className="group block">
-                <h3 className="font-medium underline-offset-4 group-hover:underline">
-                  {project.title}
-                </h3>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {project.tagline}
-                </p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {project.role} · {project.period}
-                </p>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+        <section id="experience" className="flex scroll-mt-8 flex-col gap-3">
+          <h2 className="label m-0">Experience</h2>
+          <ExperienceRows entries={experience} />
+        </section>
 
-      <Separator />
+        <section id="more" className="flex scroll-mt-8 flex-col gap-3">
+          <h2 className="label m-0">More</h2>
+          <p className="m-0 max-w-[720px] text-xl leading-[1.4] tracking-[-0.01em] md:text-[22px]">
+            {profile.more}
+          </p>
+        </section>
 
-      <section id="experience" className="scroll-mt-8">
-        <h2 className="mb-5 text-sm font-medium text-muted-foreground">
-          Experience
-        </h2>
-        <ExperienceList entries={experience} />
-      </section>
-    </div>
+        <ContactLinks />
+      </div>
+    </SpinePage>
   );
 }
