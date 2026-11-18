@@ -18,6 +18,8 @@ Blake Swaidner's personal site: a resume with more depth, read by recruiters, in
 - `main` deploys to production on Vercel; every pull request gets a preview URL. Work on a branch, never on `main`.
 - Commit subjects are plain sentences describing the change, with no `feat:` or `fix:` prefix.
 - Vercel Analytics and Speed Insights are the only monitoring. Do not add other trackers.
+- The Vercel project is `blakeswaidner-com` in the personal `bswaidners-projects` scope, not a company team. Pass `--scope bswaidners-projects` to `vercel` commands.
+- `www.blakeswaidner.com` redirects to the apex domain; link to the apex.
 
 ## Content
 
